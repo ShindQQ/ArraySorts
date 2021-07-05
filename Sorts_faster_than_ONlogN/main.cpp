@@ -11,7 +11,7 @@
 #define CONST_10k 10000
 #define CONST__5k -5000
 
-// Sorts O(N^2)
+// Sorts O faster than O*N*log(N)
 // CountSort
 // BucketSort
 
