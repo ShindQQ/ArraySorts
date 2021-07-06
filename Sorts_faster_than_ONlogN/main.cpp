@@ -30,6 +30,49 @@ struct bucket
     int* values;
 };
 
+int CompareIntegers(const void* first, const void* second);
+int* BucketSort(int* arr, int size);
+
+int main()
+{
+    FILE* fp;
+    char filename[] = "file.txt";
+    int num;
+    int arr_size = CONST_10k;
+    int* arr = (int*)malloc(sizeof(int) * arr_size);
+    fp = fopen(filename, "w+");
+
+    srand(time(NULL));
+    for (int i = 0; i < arr_size; i++)
+    {
+        num = CONST__5k + rand() % CONST_10k;
+        fprintf(fp, "%d ", num);
+        printf("%d ", num);
+    }
+    puts("\n");
+    fclose(fp);
+
+    fp = fopen(filename, "r+");
+
+    for (int i = 0; i < arr_size; i++)
+    {
+        fscanf(fp, "%d ", &arr[i]);
+    }
+
+    fclose(fp);
+
+    //CountSort(arr, arr_size, FindBiggest(arr, arr_size), FindSmallest(arr, arr_size));
+    BucketSort(arr, arr_size);
+
+    for (int i = 0; i < arr_size; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+
+    free(arr);
+    return 0;
+}
+
 int CompareIntegers(const void* first, const void* second)
 {
     const int a = *((const int*)first);
@@ -70,7 +113,7 @@ int* BucketSort(int* arr, int size)
             buckets[1].values[buckets[1].count++] = arr[i];
         }
     }
-    for (int i = 0, j =0; i < 2; i++)
+    for (int i = 0, j = 0; i < 2; i++)
     {
         qsort(buckets[i].values, buckets[i].count, sizeof(int), &CompareIntegers);
         for (int k = 0; k < buckets[i].count; k++)
@@ -81,47 +124,6 @@ int* BucketSort(int* arr, int size)
         free(buckets[i].values);
     }
     return arr;
-}
-
-
-int main()
-{
-    FILE* fp;
-    char filename[] = "file.txt";
-    int num;
-    int arr_size = CONST_10k;
-    int* arr = (int*)malloc(sizeof(int) * arr_size);
-    fp = fopen(filename, "w+");
-
-    srand(time(NULL));
-    for (int i = 0; i < arr_size; i++)
-    {
-        num = CONST__5k + rand() % CONST_10k;
-        fprintf(fp, "%d ", num);
-        printf("%d ", num);
-    }
-    puts("\n");
-    fclose(fp);
-
-    fp = fopen(filename, "r+");
-
-    for (int i = 0; i < arr_size; i++)
-    {
-        fscanf(fp, "%d ", &arr[i]);
-    }
-
-    fclose(fp);
-
-    //CountSort(arr, arr_size, FindBiggest(arr, arr_size), FindSmallest(arr, arr_size));
-    BucketSort(arr, arr_size);
-
-    for (int i = 0; i < arr_size; i++)
-    {
-        printf("%d ", arr[i]);
-    }
-
-    free(arr);
-    return 0;
 }
 
 void swap(int& arg1, int& arg2)
