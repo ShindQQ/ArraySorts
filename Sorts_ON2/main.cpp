@@ -28,11 +28,12 @@ int main()
     FILE* fp;
     char filename[] = "file.txt";
     int num;
-    int* arr = (int*)malloc(sizeof(int) * CONST_10k);
+    int arr_size = CONST_10k;
+    int* arr = (int*)malloc(sizeof(int) * arr_size);
     fp = fopen(filename, "w+");
 
     srand(time(NULL));
-    for (int i = 0; i < CONST_10k; i++)
+    for (int i = 0; i < arr_size; i++)
     {
         num = CONST__5k + rand() % CONST_10k;
         fprintf(fp, "%d ", num);
@@ -43,19 +44,19 @@ int main()
 
     fp = fopen(filename, "r+");
 
-    for (int i = 0; i < CONST_10k; i++)
+    for (int i = 0; i < arr_size; i++)
     {
         fscanf(fp, "%d ", &arr[i]);
     }
 
     fclose(fp);
 
-    //InsertSort(arr, CONST_10k);
-    //BubbleSort(arr, CONST_10k);
-    //ChoiceSort(arr, CONST_10k);
-    ShakerSort(arr, CONST_10k);
+    //InsertSort(arr, arr_size);
+    //BubbleSort(arr, arr_size);
+    //ChoiceSort(arr, arr_size);
+    ShakerSort(arr, arr_size);
 
-    for (int i = 0; i < CONST_10k; i++)
+    for (int i = 0; i < arr_size; i++)
     {
         printf("%d ", arr[i]);
     }
