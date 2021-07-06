@@ -18,6 +18,7 @@
 void swap(int& arg1, int& arg2);
 
 // CountSort
+
 int FindSmallest(int* arr, int size);
 int FindBiggest(int* arr, int size);
 int* CountSort(int* arr, int size, int biggest, int smallest);
