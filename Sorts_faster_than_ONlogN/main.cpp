@@ -25,7 +25,7 @@ int* CountSort(int* arr, int size, int biggest, int smallest);
 
 //BucketSort
 
-struct bucket
+struct Bucket
 {
     int count;
     int* values;
@@ -94,7 +94,7 @@ int CompareIntegers(const void* first, const void* second)
 
 int* BucketSort(int* arr, int size)
 {
-    struct bucket buckets[2];
+    struct Bucket buckets[2];
     for (int i = 0; i < 2; i++)
     {
         buckets[i].count = 0;
