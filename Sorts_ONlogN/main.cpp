@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <time.h>
 
+#define CONST_ARRAY_SIZE 10000
 #define CONST_10k 10000
 #define CONST__5k -5000
 
@@ -34,7 +35,7 @@ int main()
     FILE* fp;
     char filename[] = "file.txt";
     int num;
-    int arr_size = CONST_10k;
+    int arr_size = CONST_ARRAY_SIZE;
     int* arr = (int*)malloc(sizeof(int) * arr_size);
     fp = fopen(filename, "w+");
 
@@ -57,8 +58,8 @@ int main()
 
     fclose(fp);
 
-    //ShellSort(arr, arr_size);
-    //QuickSort(arr, 0, arr_size);
+    //shellSort(arr, arr_size);
+    //quickSort(arr, 0, arr_size);
     mergeSort(arr, 0, arr_size - 1);
 
     for (int i = 0; i < arr_size; i++)
