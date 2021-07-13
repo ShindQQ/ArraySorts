@@ -18,9 +18,10 @@
 void swap(int& arg1, int& arg2);
 
 // BogoSort
-int Correct(int* arr, int size);
-int* Shuffle(int* arr, int size);
-int* BogoSort(int* arr, int size);
+
+int isArraySorted(int* arr, int size);
+int* shuffle(int* arr, int size);
+int* bogoSort(int* arr, int size);
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
 	}
 	puts("");
 
-	BogoSort(arr, CONST_ARRAY_SIZE);
+	bogoSort(arr, CONST_ARRAY_SIZE);
 
 	for (int i = 0; i < CONST_ARRAY_SIZE; i++)
 	{
@@ -55,7 +56,7 @@ void swap(int& arg1, int& arg2)
 	arg2 = tmp;
 }
 
-int Correct(int* arr, int size)
+int isArraySorted(int* arr, int size)
 {
 	while (size-- > 0)
 	{
@@ -67,7 +68,7 @@ int Correct(int* arr, int size)
 	return 1;
 }
 
-int* Shuffle(int* arr, int size)
+int* shuffle(int* arr, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -76,11 +77,11 @@ int* Shuffle(int* arr, int size)
 	return arr;
 }
 
-int* BogoSort(int* arr, int size)
+int* bogoSort(int* arr, int size)
 {
-	while (!Correct(arr, size))
+	while (!isArraySorted(arr, size))
 	{
-		arr = Shuffle(arr, size);
+		arr = shuffle(arr, size);
 	}
 	return arr;
 }

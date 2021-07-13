@@ -17,10 +17,17 @@
 // Merge
 
 void swap(int& arg1, int& arg2);
-int* ShellSort(int* arr, int size);
-int* QuickSort(int* arr, int left_border, int right_border);
-int* MergeSort(int* arr, int begin_position, int end_position);
-int* Merge(int* arr, int begin_position, int middle_position, int end_position);
+
+// ShellSort
+int* shellSort(int* arr, int size);
+
+// QuickSort
+int* quickSort(int* arr, int left_border, int right_border);
+
+// MergeSort
+
+int* mergeSort(int* arr, int begin_position, int end_position);
+int* merge(int* arr, int begin_position, int middle_position, int end_position);
 
 int main()
 {
@@ -52,7 +59,7 @@ int main()
 
     //ShellSort(arr, arr_size);
     //QuickSort(arr, 0, arr_size);
-    MergeSort(arr, 0, arr_size - 1);
+    mergeSort(arr, 0, arr_size - 1);
 
     for (int i = 0; i < arr_size; i++)
     {
@@ -70,7 +77,7 @@ void swap(int& arg1, int& arg2)
     arg2 = tmp;
 }
 
-int* ShellSort(int* arr, int size)
+int* shellSort(int* arr, int size)
 {
     for (int k = size / 2; k > 0; k /= 2)
     {
@@ -88,7 +95,7 @@ int* ShellSort(int* arr, int size)
     return arr;
 }
 
-int* QuickSort(int* arr, int left_border, int right_border)
+int* quickSort(int* arr, int left_border, int right_border)
 {
     int i = left_border;
     int j = right_border - 1;
@@ -115,28 +122,28 @@ int* QuickSort(int* arr, int left_border, int right_border)
     }
     if (left_border < j)
     {
-        arr = QuickSort(arr, left_border, j);
+        arr = quickSort(arr, left_border, j);
     }
     if (i < right_border)
     {
-        arr = QuickSort(arr, i, right_border);
+        arr = quickSort(arr, i, right_border);
     }
     return arr;
 }
 
-int* MergeSort(int* arr, int begin_border, int end_border)
+int* mergeSort(int* arr, int begin_border, int end_border)
 {
     int middle_position = (begin_border + end_border) / 2;
     if (begin_border < end_border)
     {
-        arr = MergeSort(arr, begin_border, middle_position);
-        arr = MergeSort(arr, middle_position + 1, end_border);
-        arr = Merge(arr, begin_border, middle_position, end_border);
+        arr = mergeSort(arr, begin_border, middle_position);
+        arr = mergeSort(arr, middle_position + 1, end_border);
+        arr = merge(arr, begin_border, middle_position, end_border);
     }
     return arr;
 }
 
-int* Merge(int* arr, int begin_position, int middle_position, int end_position)
+int* merge(int* arr, int begin_position, int middle_position, int end_position)
 {
     int left = begin_position;
     int centre = middle_position + 1;

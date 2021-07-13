@@ -19,9 +19,9 @@ void swap(int& arg1, int& arg2);
 
 // CountSort
 
-int FindSmallest(int* arr, int size);
-int FindBiggest(int* arr, int size);
-int* CountSort(int* arr, int size, int biggest, int smallest);
+int findSmallest(int* arr, int size);
+int findBiggest(int* arr, int size);
+int* countSort(int* arr, int size, int biggest, int smallest);
 
 //BucketSort
 
@@ -31,8 +31,8 @@ struct Bucket
     int* values;
 };
 
-int CompareIntegers(const void* first, const void* second);
-int* BucketSort(int* arr, int size);
+int compareIntegers(const void* first, const void* second);
+int* bucketSort(int* arr, int size);
 
 int main()
 {
@@ -63,7 +63,7 @@ int main()
     fclose(fp);
 
     //CountSort(arr, arr_size, FindBiggest(arr, arr_size), FindSmallest(arr, arr_size));
-    BucketSort(arr, arr_size);
+    bucketSort(arr, arr_size);
 
     for (int i = 0; i < arr_size; i++)
     {
@@ -74,7 +74,7 @@ int main()
     return 0;
 }
 
-int CompareIntegers(const void* first, const void* second)
+int compareIntegers(const void* first, const void* second)
 {
     const int a = *((const int*)first);
     const int b = *((const int*)second);
@@ -92,7 +92,7 @@ int CompareIntegers(const void* first, const void* second)
     }
 }
 
-int* BucketSort(int* arr, int size)
+int* bucketSort(int* arr, int size)
 {
     struct Bucket buckets[2];
     for (int i = 0; i < 2; i++)
@@ -116,7 +116,7 @@ int* BucketSort(int* arr, int size)
     }
     for (int i = 0, j = 0; i < 2; i++)
     {
-        qsort(buckets[i].values, buckets[i].count, sizeof(int), &CompareIntegers);
+        qsort(buckets[i].values, buckets[i].count, sizeof(int), &compareIntegers);
         for (int k = 0; k < buckets[i].count; k++)
         {
             arr[j + k] = buckets[i].values[k];
@@ -134,7 +134,7 @@ void swap(int& arg1, int& arg2)
     arg2 = tmp;
 }
 
-int FindSmallest(int* arr, int size)
+int findSmallest(int* arr, int size)
 {
     int smallest = 0;
     for (int i = 0; i < size; i++)
@@ -147,7 +147,7 @@ int FindSmallest(int* arr, int size)
     return smallest;
 }
 
-int FindBiggest(int* arr, int size)
+int findBiggest(int* arr, int size)
 {
     int biggest = 0;
     for (int i = 0; i < size; i++)
@@ -160,7 +160,7 @@ int FindBiggest(int* arr, int size)
     return biggest;
 }
 
-int* CountSort(int* arr, int size, int biggest, int smallest)
+int* countSort(int* arr, int size, int biggest, int smallest)
 {
     int* tmp_arr = NULL;
     int iterator = 0;

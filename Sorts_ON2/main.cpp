@@ -18,10 +18,22 @@
 // Shaker
 
 void swap(int& arg1, int& arg2);
-int* InsertSort(int* arr, int size);
-int* BubbleSort(int* arr, int size);
-int* ChoiceSort(int* arr, int size);
-int* ShakerSort(int* arr, int size);
+
+// InsertSort
+
+int* insertSort(int* arr, int size);
+
+// BubbleSort
+
+int* bubbleSort(int* arr, int size);
+
+// ChoiceSort
+
+int* choiceSort(int* arr, int size);
+
+// ShakerSort
+
+int* shakerSort(int* arr, int size);
 
 int main()
 {
@@ -54,7 +66,7 @@ int main()
     //InsertSort(arr, arr_size);
     //BubbleSort(arr, arr_size);
     //ChoiceSort(arr, arr_size);
-    ShakerSort(arr, arr_size);
+    shakerSort(arr, arr_size);
 
     for (int i = 0; i < arr_size; i++)
     {
@@ -72,7 +84,7 @@ void swap(int& arg1, int& arg2)
     arg2 = tmp;
 }
 
-int* InsertSort(int* arr, int size)
+int* insertSort(int* arr, int size)
 {
     for (int i = 1; i < size; i++)
     {
@@ -84,7 +96,7 @@ int* InsertSort(int* arr, int size)
     return arr;
 }
 
-int* BubbleSort(int* arr, int size)
+int* bubbleSort(int* arr, int size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -99,7 +111,7 @@ int* BubbleSort(int* arr, int size)
     return arr;
 }
 
-int* ChoiceSort(int* arr, int size)
+int* choiceSort(int* arr, int size)
 {
     int min = 0;
     for (int i = 0; i < size - 1; i++)
@@ -117,7 +129,7 @@ int* ChoiceSort(int* arr, int size)
     return arr;
 }
 
-int* ShakerSort(int* arr, int size)
+int* shakerSort(int* arr, int size)
 {
     int left_border = 0;
     int right_border = size - 1;
