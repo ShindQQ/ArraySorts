@@ -30,20 +30,31 @@ int main()
 
 	srand(time(NULL));
 
+	printf("Unsorted array:\n\n");
 	for (int i = 0; i < CONST_ARRAY_SIZE; i++)
 	{
 		 num = CONST_LOW_RAND_VALUE + rand() % CONST_HIGH_RAND_VALUE;
 		 printf("%d ", num);
 		 arr[i] = num;
 	}
-	puts("");
+	puts("\n");
 
-	bogoSort(arr, CONST_ARRAY_SIZE);
+	clock_t begin = clock();
+	
+	bogoSort(arr, CONST_ARRAY_SIZE); // time from 0 to 8.665000
+
+	clock_t end = clock();
+
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+	printf("Time spent on sorting: %lf;\n\n", time_spent);
+	printf("Sorted array:\n\n");
 
 	for (int i = 0; i < CONST_ARRAY_SIZE; i++)
 	{
 		printf("%d ", arr[i]);
 	}
+	puts("");
 
 	free(arr);
 	return 0;
@@ -65,6 +76,7 @@ int isArraySorted(int* arr, int size)
 			return 0;
 		}
 	}
+
 	return 1;
 }
 
@@ -74,6 +86,7 @@ int* shuffle(int* arr, int size)
 	{
 		swap(arr[i], arr[(rand() % size)]);
 	}
+
 	return arr;
 }
 
@@ -83,5 +96,6 @@ int* bogoSort(int* arr, int size)
 	{
 		arr = shuffle(arr, size);
 	}
+
 	return arr;
 }

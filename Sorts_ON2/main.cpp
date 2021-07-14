@@ -46,6 +46,8 @@ int main()
     fp = fopen(filename, "w+");
 
     srand(time(NULL));
+
+    printf("Unsorted array:\n\n");
     for (int i = 0; i < arr_size; i++)
     {
         num = CONST__5k + rand() % CONST_10k;
@@ -64,15 +66,25 @@ int main()
 
     fclose(fp);
 
-    //insertSort(arr, arr_size);
-    //bubbleSort(arr, arr_size);
-    //choiceSort(arr, arr_size);
-    shakerSort(arr, arr_size);
+    clock_t begin = clock();
+
+    // insertSort(arr, arr_size); // time 0.603000
+    // bubbleSort(arr, arr_size); // time  1.231000
+    // choiceSort(arr, arr_size); // time 0.174000
+    shakerSort(arr, arr_size); // time 0.990000
+
+    clock_t end = clock();
+
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    printf("Time spent on sorting: %lf;\n\n", time_spent);
+    printf("Sorted array:\n\n");
 
     for (int i = 0; i < arr_size; i++)
     {
         printf("%d ", arr[i]);
     }
+    puts("");
 
     free(arr);
     return 0;
@@ -94,6 +106,7 @@ int* insertSort(int* arr, int size)
             swap(arr[j - 1], arr[j]);
         }
     }
+
     return arr;
 }
 
@@ -115,6 +128,7 @@ int* bubbleSort(int* arr, int size)
 int* choiceSort(int* arr, int size)
 {
     int min = 0;
+
     for (int i = 0; i < size - 1; i++)
     {
         min = i;
@@ -127,6 +141,7 @@ int* choiceSort(int* arr, int size)
         }
         swap(arr[i], arr[min]);
     }
+
     return arr;
 }
 
@@ -134,6 +149,7 @@ int* shakerSort(int* arr, int size)
 {
     int left_border = 0;
     int right_border = size - 1;
+
     while (left_border <= right_border)
     {
         for (int i = right_border; i >= left_border; i--)
@@ -153,5 +169,6 @@ int* shakerSort(int* arr, int size)
         }
         right_border--;
     }
+
     return arr;
 }

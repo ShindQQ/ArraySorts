@@ -40,6 +40,8 @@ int main()
     fp = fopen(filename, "w+");
 
     srand(time(NULL));
+
+    printf("Unsorted array:\n\n");
     for (int i = 0; i < arr_size; i++)
     {
         num = CONST__5k + rand() % CONST_10k;
@@ -57,15 +59,25 @@ int main()
     }
 
     fclose(fp);
+    
+    clock_t begin = clock();
 
-    //shellSort(arr, arr_size);
-    //quickSort(arr, 0, arr_size);
-    mergeSort(arr, 0, arr_size - 1);
+    // shellSort(arr, arr_size); // time 0.344000
+    // quickSort(arr, 0, arr_size); // time 0.002000
+    mergeSort(arr, 0, arr_size - 1); // time 0.020000
+
+    clock_t end = clock();
+
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    printf("Time spent on sorting: %lf;\n\n", time_spent);
+    printf("Sorted array:\n\n");
 
     for (int i = 0; i < arr_size; i++)
     {
         printf("%d ", arr[i]);
     }
+    puts("");
 
     free(arr);
     return 0;
@@ -93,6 +105,7 @@ int* shellSort(int* arr, int size)
             }
         }
     }
+
     return arr;
 }
 
@@ -101,6 +114,7 @@ int* quickSort(int* arr, int left_border, int right_border)
     int i = left_border;
     int j = right_border - 1;
     int middle_of_array = arr[(left_border + right_border) / 2];
+
     while (i <= j)
     {
         while (arr[i] < middle_of_array)
@@ -121,26 +135,30 @@ int* quickSort(int* arr, int left_border, int right_border)
             j--;
         }
     }
+
     if (left_border < j)
     {
         arr = quickSort(arr, left_border, j);
     }
-    if (i < right_border)
+    else if (i < right_border)
     {
         arr = quickSort(arr, i, right_border);
     }
+
     return arr;
 }
 
 int* mergeSort(int* arr, int begin_border, int end_border)
 {
     int middle_position = (begin_border + end_border) / 2;
+    
     if (begin_border < end_border)
     {
         arr = mergeSort(arr, begin_border, middle_position);
         arr = mergeSort(arr, middle_position + 1, end_border);
         arr = merge(arr, begin_border, middle_position, end_border);
     }
+
     return arr;
 }
 
@@ -151,6 +169,7 @@ int* merge(int* arr, int begin_position, int middle_position, int end_position)
     int index = begin_position;
     int size = end_position + 1;
     int* temp = (int*)malloc(sizeof(int) * size);
+
     while (left <= middle_position && centre <= end_position)
     {
         if (arr[left] < arr[centre])
@@ -165,6 +184,7 @@ int* merge(int* arr, int begin_position, int middle_position, int end_position)
         }
         index++;
     }
+
     if (left > middle_position)
     {
         while (centre <= end_position)
@@ -183,10 +203,13 @@ int* merge(int* arr, int begin_position, int middle_position, int end_position)
             index++;
         }
     }
+
     for (int i = begin_position; i < index; i++)
     {
         arr[i] = temp[i];
     }
+
     free(temp);
+
     return arr;
 }

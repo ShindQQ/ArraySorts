@@ -45,6 +45,8 @@ int main()
     fp = fopen(filename, "w+");
 
     srand(time(NULL));
+
+    printf("Unsorted array:\n\n");
     for (int i = 0; i < arr_size; i++)
     {
         num = CONST__5k + rand() % CONST_10k;
@@ -62,23 +64,41 @@ int main()
     }
 
     fclose(fp);
+    
+    clock_t begin = clock();
 
-    //countSort(arr, arr_size, findBiggest(arr, arr_size), findSmallest(arr, arr_size));
-    bucketSort(arr, arr_size);
+    // countSort(arr, arr_size, findBiggest(arr, arr_size), findSmallest(arr, arr_size)); // time 0.000000
+    bucketSort(arr, arr_size); // time  0.006000
+
+    clock_t end = clock();
+
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+
+    printf("Time spent on sorting: %lf;\n\n", time_spent);
+    printf("Sorted array:\n\n");
 
     for (int i = 0; i < arr_size; i++)
     {
         printf("%d ", arr[i]);
     }
+    puts("");
 
     free(arr);
     return 0;
+}
+
+void swap(int& arg1, int& arg2)
+{
+    int tmp = arg1;
+    arg1 = arg2;
+    arg2 = tmp;
 }
 
 int compareIntegers(const void* first, const void* second)
 {
     const int a = *((const int*)first);
     const int b = *((const int*)second);
+
     if (a == b)
     {
         return 0;
@@ -96,6 +116,7 @@ int compareIntegers(const void* first, const void* second)
 int* bucketSort(int* arr, int size)
 {
     struct Bucket buckets[2];
+
     for (int i = 0; i < 2; i++)
     {
         buckets[i].count = 0;
@@ -104,6 +125,7 @@ int* bucketSort(int* arr, int size)
             return NULL;
         }
     }
+
     for (int i = 0; i < size; i++)
     {
         if (arr[i] < 0)
@@ -115,6 +137,7 @@ int* bucketSort(int* arr, int size)
             buckets[1].values[buckets[1].count++] = arr[i];
         }
     }
+
     for (int i = 0, j = 0; i < 2; i++)
     {
         qsort(buckets[i].values, buckets[i].count, sizeof(int), &compareIntegers);
@@ -125,14 +148,8 @@ int* bucketSort(int* arr, int size)
         j += buckets[i].count;
         free(buckets[i].values);
     }
-    return arr;
-}
 
-void swap(int& arg1, int& arg2)
-{
-    int tmp = arg1;
-    arg1 = arg2;
-    arg2 = tmp;
+    return arr;
 }
 
 int findSmallest(int* arr, int size)
@@ -151,6 +168,7 @@ int findSmallest(int* arr, int size)
 int findBiggest(int* arr, int size)
 {
     int biggest = 0;
+
     for (int i = 0; i < size; i++)
     {
         if (biggest < arr[i])
@@ -158,6 +176,7 @@ int findBiggest(int* arr, int size)
             biggest = arr[i];
         }
     }
+
     return biggest;
 }
 
@@ -166,15 +185,18 @@ int* countSort(int* arr, int size, int biggest, int smallest)
     int* tmp_arr = NULL;
     int iterator = 0;
     int tmp_size = biggest + abs(smallest) + 1;
+
     if (!(tmp_arr = (int*)calloc(tmp_size, sizeof(int))))
     {
         printf("Not enough memory for array! LINE: %d", __LINE__);
         exit(1);
     }
+
     for (int i = 0; i < size; i++)
     {
         tmp_arr[arr[i] + abs(smallest)]++;
     }
+
     for (int i = 0; i < tmp_size; i++)
     {
         for (int j = 0; j < tmp_arr[i]; j++)
@@ -183,6 +205,8 @@ int* countSort(int* arr, int size, int biggest, int smallest)
             iterator++;
         }
     }
+
     free(tmp_arr);
+
     return arr;
 }
