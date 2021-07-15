@@ -38,7 +38,7 @@ int main()
 
 	clock_t begin = clock();
 	
-	bogoSort(arr, CONST_ARRAY_SIZE); // time from 0 to 8.665000
+	bogoSort(arr, CONST_ARRAY_SIZE); // time from 0 to 8.665000 or more and more...
 
 	clock_t end = clock();
 
