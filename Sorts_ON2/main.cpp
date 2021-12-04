@@ -149,7 +149,7 @@ int* shakerSort(int* arr, int size)
 
     while (left_border <= right_border)
     {
-        for (int i = right_border; i >= left_border; i--)
+        for (int i = right_border; i > left_border; i--)
         {
             if (arr[i - 1] > arr[i])
             {
